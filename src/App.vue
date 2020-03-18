@@ -1,13 +1,18 @@
 <template>
   <div id="app">
+    <Icon icon-class="img"></Icon>
+    <Icon icon-class="msg"></Icon>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
-
+<script>
+import '@/icons/svg/msg.svg'
+export default {}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
