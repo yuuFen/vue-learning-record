@@ -1,27 +1,58 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+import Layout from '@/layout'
 
-const routes = [
+Vue.use(Router)
+
+// 静态部分 通用部分
+export const constRoutes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/login',
+    component: () => import('@/views/Login'),
+    hidden: true,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/',
+    component: Layout,
+    redirect: '/home',
+    children: [
+      {
+        path: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home'),
+        name: 'Home',
+        meta: {
+          title: 'Home', // 导航菜单项标题
+          icon: 'msg', // 导航菜单项图标
+        },
+      },
+    ],
+  },
 ]
 
-const router = new VueRouter({
-  routes
-})
+export const asyncRoutes = [
+  {
+    path: '/about',
+    component: Layout,
+    redirect: '/about/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/About.vue'),
+        name: 'about',
+        meta: {
+          title: 'About',
+          icon: 'img',
+          // 角色
+          role: ['admin', 'editor'],
+        },
+      },
+    ],
+  },
+]
 
-export default router
+export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: constRoutes,
+})
