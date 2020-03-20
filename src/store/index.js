@@ -12,6 +12,7 @@ export default new Vuex.Store({
     user, // 用户信息
   },
   getters: {
-    roles: (state) => state.user.roles,  
+    roles: (state) => state.user.roles,
+    permission_routes: (state) => state.permission.routes,
   },
 })

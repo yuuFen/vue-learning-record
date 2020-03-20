@@ -16,6 +16,9 @@ export const constRoutes = [
     path: '/',
     component: Layout,
     redirect: '/home',
+    meta: {
+      title: '主页',
+    },
     children: [
       {
         path: 'home',
