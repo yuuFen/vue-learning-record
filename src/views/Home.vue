@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <!-- 按钮权限 -->
+    <button v-permission="['admin', 'editor']">editor button</button>
+    <button v-permission="['admin']">admin button</button>
   </div>
 </template>
 
@@ -12,7 +14,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 }
 </script>

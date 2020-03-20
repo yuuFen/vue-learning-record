@@ -6,6 +6,10 @@ import store from './store'
 import './icons'
 import './permission'
 
+// 注册指令
+import permission from '@/directive/permission'
+Vue.directive('permission', permission)
+
 Vue.config.productionTip = false
 
 new Vue({
