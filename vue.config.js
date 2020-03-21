@@ -1,3 +1,6 @@
+// 处理 post 请求参数
+const bodyParser = require('body-parser')
+
 const port = 7070
 const title = 'Vue Learning Record'
 
@@ -11,6 +14,38 @@ module.exports = {
   publicPath: '/practice',
   devServer: {
     port,
+    // 配置 mock 接口
+    // app 是 express 的实例
+    before: (app) => {
+      // 注册中间件，处理 post 参数
+      app.use(bodyParser.json())
+
+      app.post('/dev-api/user/login', (req, res) => {
+        const { username } = req.body
+
+        if (username === 'admin' || username === 'jerry') {
+          res.json({
+            code: 1,
+            data: username,
+          })
+        } else {
+          res.json({
+            code: 10204,
+            message: '用户名或密码错误',
+          })
+        }
+      })
+
+      // get 之前需要一个中间件来判断 token 合法性，这里没写
+      app.get('/dev-api/user/info', (req, res) => {
+        const auth = req.headers['authorization']
+        const roles = auth.split(' ')[1] === 'admin' ? ['admin'] : ['editor']
+        res.json({
+          code: 1,
+          data: roles,
+        })
+      })
+    },
   },
   configureWebpack: {
     // 不够灵活
